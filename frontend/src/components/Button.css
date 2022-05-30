@@ -1,0 +1,26 @@
+
+  
+  .btn {
+    height: 45px;
+    width: 120px;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    font-size: 15px;
+    color: #fff;
+    cursor: pointer;
+    background-color: var(--blue);
+  }
+  .btn>i{
+    color: #fff;
+    font-size: 2rem;
+  }
+  
+  .btn:hover {
+    padding: 6px 18px;
+    transition: all 0.3s ease-out;
+    color: #fff;
+    border: 2px solid var(--primary);
+    transition: all 0.3s ease-out;
+    background-color: var(--bluer);
+  }

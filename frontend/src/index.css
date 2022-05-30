@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans&family=Quicksand:wght@400;700&display=swap');
+
+:root{
+    --blue: rgb(0, 165, 145);
+    --bluer: rgb(11, 142, 129);
+    --dark: rgb(55, 65, 82);
+
+}
+*{
+    font-family: 'Quicksand', 'Open sans';
+    /* transition: 0.5s; */
+}
+body, html{
+    overflow-x: hidden;
+}
