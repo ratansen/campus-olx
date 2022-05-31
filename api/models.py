@@ -1,8 +1,32 @@
+from distutils.command.upload import upload
+from pyexpat import model
+from tkinter.ttk import Separator
 from django.db import models
+import uuid
+from django.forms import IntegerField
 
 # Create your models here.
 class Product(models.Model):
-    product_name = models.CharField(max_length=255)
-    product_price = models.PositiveBigIntegerField()
-    product_quantity = models.PositiveBigIntegerField()
     
+    category_list = (
+        ('Electronics', 'Electronics'),
+        ('Stationary', 'Stationary'),
+        ('Sports', 'Sports'),
+        ('Vehicle', 'Vehicle'),
+        ('Music', 'Music'),
+        ('Fashion', 'Fashion'),
+        ('Miscellaneous', 'Miscellaneous'),
+    )
+
+    id = models.SlugField(primary_key=True, default=uuid.uuid4)
+    title = models.CharField(max_length=1023)
+    category = models.CharField(max_length=63, choices=category_list, default='Electronics')
+    price = models.PositiveIntegerField()
+    description = models.TextField()
+    images = models.ImageField(upload_to = "ads_images")
+    negotiable = models.BooleanField(default=False)
+
+
+
+    def __str__(self):
+        return str(self.title)   
