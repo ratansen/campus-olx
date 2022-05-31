@@ -1,9 +1,26 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import './Home.css';
-import Category from "../components/Category";
+import CategorySlider from "../components/CategorySlider";
 import AdCard from "../components/AdCard";
+import {axios} from "../api.js";
 
 export default function Home(){
+    const [ads , setAds] = useState([]) ;
+    
+    useEffect(()=>{
+      axios.get('products/').then((response) => {
+        setAds(response.data.data);
+        console.log(ads);
+      }).catch((error) => {
+                if (error.response) {
+                  console.log(error.response);
+                  console.log(error.response.status);
+                  console.log(error.response.headers);
+                  }
+              });
+    },[])
+
     return (
         <>
             <div className="home-wrapper">
@@ -22,13 +39,19 @@ export default function Home(){
                     </div>
 
                 </div>
-                <Category/>
+                <CategorySlider/>
                 <div className="home-ads">
                     <AdCard />
                     <AdCard />
                     <AdCard />
                     <AdCard />
                     <AdCard />
+                    {ads.map((item , index) => {
+                        return(
+                            <AdCard image = {'http://127.0.0.1:8000' + item.images} category = {item.category} title = {item.title} price = {item.price} />
+                        )
+                    })}
+                    {/* {console.log(ads)} */}
 
                 </div>
             </div>

@@ -1,7 +1,9 @@
 .ad-card{
+    font-family: 'Open sans';
     height: 320px;
     width: 265px;
     /* border: 1px solid #fff; */
+    background-color: #fff;
 
 }
 .ad-card:hover{
@@ -18,12 +20,26 @@
     align-items: center;
     overflow: hidden;
     position: relative;
+    /* background-color: yellow;
+    filter: blur(10px); */
 }
-.ad-card-image img{
+.blur-bg{
+    height: 120%;
+    width: 120%;
+    filter: blur(20px);
+}
+.blur-bg>img{
     flex-shrink: 0;
     min-width: 100%;
     min-height: 100%;
+}
+.ad-card-image img{
+    flex-shrink: 0;
+    max-width: 100%;
+    max-height: 100%;
     cursor: pointer;
+    position: absolute;
+
 }
 
 .ad-card-desc{
@@ -43,9 +59,10 @@
 .desc2{
     font-size: 1rem;
     font-weight: bold;
+    font-family: 'Quicksand', 'Open sans';
 }
 .desc3{
-    font-weight: bold;
+    font-weight: 600;
     color: #D54B4F;
 }
 .negotiable{
@@ -57,8 +74,7 @@
     left: 0;
     font-size: 0.6rem;
     padding: 5px 7px;
-    letter-spacing: 0.2rem;
-    /* font-weight: bold; */
+    font-weight: 600;
 }
 .negotiable::after{
     content:"";
@@ -66,7 +82,7 @@
     height:0;
     width:0;
     left:99%;
-    top:-1px;
+    top:0px;
     border:11.5px solid transparent;
     border-left: 14px solid var(--dark);
 }

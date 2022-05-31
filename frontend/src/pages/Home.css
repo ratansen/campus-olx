@@ -2,6 +2,7 @@
     min-height: 300vh;
 }
 .home-hero{
+    font-family: 'Quicksand', 'Open sans';
     height: 110vh;
     width: 100vw;
     background-image: url('../images/bg-blue.jpg');
@@ -36,6 +37,8 @@
     padding: 12px;
     flex: 1;
     cursor: pointer;
+    font-family: 'Quicksand', 'Open sans';
+
 }
 .home-hero>.search>*:focus{
     outline: none;
