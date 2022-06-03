@@ -15,10 +15,10 @@ class ProductSerializer(serializers.ModelSerializer):
         ('Miscellaneous', 'Miscellaneous'),
     )
     title = serializers.CharField(max_length=1023)
-    category = serializers.CharField(max_length=1)
+    category = serializers.CharField(max_length=63)
     price = serializers.IntegerField()
     description = serializers.CharField()
-    images = serializers.ImageField()
+    images = serializers.ImageField(required = False)
     class Meta:
         model = Product
         fields = ('__all__')

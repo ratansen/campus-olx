@@ -41,11 +41,6 @@ export default function Home(){
                 </div>
                 <CategorySlider/>
                 <div className="home-ads">
-                    <AdCard />
-                    <AdCard />
-                    <AdCard />
-                    <AdCard />
-                    <AdCard />
                     {ads.map((item , index) => {
                         return(
                             <AdCard image = {'http://127.0.0.1:8000' + item.images} category = {item.category} title = {item.title} price = {item.price} />

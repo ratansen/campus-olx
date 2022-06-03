@@ -49,9 +49,7 @@
     color: #fff;
     width: 120px;
 }
-select:first-child{
-    color: red;
-}
+
 .hero-btn-search:hover{
     /* background-color: red; */
     background-color: var(--bluer);

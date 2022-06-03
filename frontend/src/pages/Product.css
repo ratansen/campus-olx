@@ -1,0 +1,151 @@
+.product-wrapper{
+    margin-top: 110px;
+    min-height: 200vh;
+    width: 100vw;
+}
+
+.product-header{
+    background-image: url('../images/bg-blue.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;  
+    height: 150px; 
+    color: #fff;
+    font-family: 'Quicksand';
+    font-weight: 700;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 7.7vw;
+}
+
+.product-body{
+    display: flex;
+    min-height: 80vh;
+    width: 86vw;
+    margin: 50px auto;
+    justify-content: center;
+    gap: 30px;
+}
+.carausal{
+    width: 63%;
+    /* border: 2px solid red; */
+}
+
+
+
+.swiper-slide {
+    /* background-size: cover; */
+    background-position: center;
+}
+
+.mySwiper2 {
+    height: auto;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: -10px;
+  }
+  .mySwiper2 img{
+      max-height: 65vh;
+      max-width: 100%;
+    }
+  
+    .mySwiper {
+        height: 20%;
+        /* box-sizing: border-box; */
+        margin-top: -10px;
+    }
+    .mySwiper img{
+        cursor: pointer;
+        
+    }
+    
+    .mySwiper .swiper-slide {
+        width: 25%;
+        height: 100%;
+        opacity: 0.4;
+    }
+    
+    .mySwiper .swiper-slide-thumb-active {
+        opacity: 1;
+    }
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    
+.product-info{
+    width: 30%;
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+    
+.price{
+    padding: 25px 35px;
+    background-color: var(--blue);
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: 'Open sans';
+
+
+}
+
+.owner-info{
+    padding: 30px 20px;
+    font-size: 1.2rem;
+    background-color: #fff;
+    font-family: 'Quicksand';
+}
+
+.owner-name{
+    padding: 7px;
+    margin-top: 20px;
+    font-weight: 600;
+}
+.user-icon{
+    line-height: 3;
+    font-size: 3rem;
+    float: left;
+    margin: 0 15px;
+}
+
+.owner-contact{
+    height: 5rem;
+    width: 100%;
+    margin-top: 60px;
+    padding: 20px;
+    background-color: #ff5a5f;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+.call{
+    font-size: 2rem;
+    margin: 0 10px;
+}
+a{
+    text-decoration: none;
+}
+
+.product-bottom{
+    width: 86vw;
+    margin: auto;
+
+}
+.product-desc{
+    font-family: 'Quicksand';
+    width: 67%;
+    padding: 30px;
+    background-color: #fff;
+}
+.product-desc>p{
+    margin-top: 20px;
+}

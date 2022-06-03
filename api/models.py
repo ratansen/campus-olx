@@ -23,7 +23,7 @@ class Product(models.Model):
     category = models.CharField(max_length=63, choices=category_list, default='Electronics')
     price = models.PositiveIntegerField()
     description = models.TextField()
-    images = models.ImageField(upload_to = "ads_images")
+    images = models.ImageField(upload_to = "ads_images", null = True, blank = True)
     negotiable = models.BooleanField(default=False)
 
 

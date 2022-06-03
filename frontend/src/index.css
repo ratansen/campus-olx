@@ -4,6 +4,8 @@
     --blue: rgb(0, 165, 145);
     --bluer: rgb(11, 142, 129);
     --dark: rgb(55, 65, 82);
+    --font1: 'Quicksand';
+    --font2: 'Open sans';
 
 }
 *{
