@@ -1,20 +1,24 @@
 
   
   .btn {
-    height: 45px;
-    width: 120px;
-    border-radius: 20px;
+    height: 50px;
+    width: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 30px;
     outline: none;
     border: none;
-    font-size: 15px;
+    font-size: 1rem;
     color: #fff;
     cursor: pointer;
     background-color: var(--blue);
+    padding: 10px;
   }
-  .btn>i{
-    color: #fff;
-    font-size: 2rem;
-  }
+.bi-plus{
+    font-size: 1.6rem;
+}
   
   .btn:hover {
     padding: 6px 18px;

@@ -1,6 +1,8 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import './Product.css';
+import { axios } from "../api";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -17,147 +19,143 @@ import { FreeMode, Navigation, Thumbs } from "swiper";
 
 import ad1 from '../images/ad1.png'
 import { FaUserCircle } from "react-icons/fa";
-import {FiPhoneCall} from "react-icons/fi"
+import { FiPhoneCall } from "react-icons/fi"
 import { FaWhatsapp } from "react-icons/fa";
+import Loading from "../components/Loader";
 
 export default function Product() {
+
+    const [ad, setAd] = useState([]);
+    var [loaderState, setLoaderState] = useState(true) ; 
+    const [slider, setSlider] = useState()
+    const { id } = useParams()
+
+    const fetchData = async () => axios.get(`products/${id}`).then((response) => {
+        setAd(response.data.data, () =>  console.log(ad));
+        const images = response.data.data.product_images;
+
+        setSlider(() => images.map((item, key) => {
+            console.log(images)
+            return (
+                <SwiperSlide className="main-image">
+                    <img src={'http://127.0.0.1:8000' + item["image"]} />
+
+
+                </SwiperSlide>
+            )
+        }), setLoaderState(false));
+
+    }).catch((error) => {
+        if (error.response) {
+            console.log(error.response);
+        }
+    });
+
+
+
+
+    
+    
+    useEffect(() => {
+        fetchData();
+    }, [])
+    
+    
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
-    return (
-        <div className="product-wrapper">
-            <div className="product-header">
-                Scania R-SRS L-CLASS R450 LA Streamline Highline Diesel
-            </div>
 
-            <div className="product-body">
-                <div className="carausal">
-                    
-                    <Swiper
-                        style={{
-                            "--swiper-navigation-color": "#fff",
-                            "--swiper-pagination-color": "#fff",
-                        }}
-                        spaceBetween={10}
-                        navigation={
-                            {
-                    clickable: true,
-                    prevEl: '#prevcat',
-                    nextEl: '#nextcat',}
-                        }
-                        thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
-                        modules={[FreeMode, Navigation, Thumbs]}
-                        className="mySwiper2"
-                        
-                    >
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src={ad1} />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
-                        </SwiperSlide>
-                    </Swiper>
-                    <Swiper
-                        onSwiper={setThumbsSwiper}
-                        spaceBetween={10}
-                        
-                        slidesPerView={4}
-                        freeMode={true}
-                        watchSlidesProgress={true}
-                        modules={[FreeMode, Navigation, Thumbs]}
-                        className="mySwiper"
+    const to_render = function() {
 
+        return (
 
-                    >
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
-                        </SwiperSlide>
-                    </Swiper>
+            <div className="product-wrapper">
+                <div className="product-header">
+                    {ad.title}
                 </div>
-                <div className="product-info">
-                        <div className="price"> &#x20B9; 300000</div>
+    
+                <div className="product-body">
+                    <div className="carausal">
+    
+                        <Swiper
+                            style={{
+                                "--swiper-navigation-color": "#fff",
+                                "--swiper-pagination-color": "#fff",
+                            }}
+                            spaceBetween={10}
+                            navigation={
+                                {
+                                    clickable: true,
+                                    prevEl: '#prevcat',
+                                    nextEl: '#nextcat',
+                                }
+                            }
+                            thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+                            modules={[FreeMode, Navigation, Thumbs]}
+                            className="mySwiper2"
+    
+                        >
+    
+
+                            {slider}
+                        </Swiper>
+                        <Swiper
+                            onSwiper={setThumbsSwiper}
+                            spaceBetween={10}
+    
+                            slidesPerView={4}
+                            freeMode={true}
+                            watchSlidesProgress={true}
+                            modules={[FreeMode, Navigation, Thumbs]}
+                            className="mySwiper"
+    
+    
+                        >
+                            {slider}
+                      
+                        </Swiper>
+                    </div>
+                    <div className="product-info">
+                        <div className="price"> &#x20B9; {ad.price}</div>
                         <div className="owner-info">
                             <span>Ad Owner</span>
                             <div className="owner-name">
-                                <FaUserCircle className="user-icon"/>
+                                <FaUserCircle className="user-icon" />
                                 Ratan Sen
                             </div>
                             <a href="tel:902609">
-
-                            <div className="owner-contact">
-                                <FiPhoneCall className="call" /> +919026919595
-                            </div>
+    
+                                <div className="owner-contact">
+                                    <FiPhoneCall className="call" /> +919026919595
+                                </div>
                             </a>
                             <a href="https://wa.me/9026902690">
-
-                            <div className="owner-contact" >
-                                <FaWhatsapp className="call" /> +919026919595
-                            </div>
+    
+                                <div className="owner-contact" >
+                                    <FaWhatsapp className="call" /> +919026919595
+                                </div>
                             </a>
                         </div>
+                    </div>
                 </div>
-            </div>
-            <div className="product-bottom">
-                <div className="product-desc">
-                        <h2>Scania R-SRS L-CLASS R450 LA Streamline Highline Diesel</h2>
+                <div className="product-bottom">
+                    <div className="product-desc">
+                        <h2>{ad.title}</h2>
                         <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            {ad.description}
                         </p>
+                    </div>
+                    <div className="ad-action">
+    
+                    </div>
                 </div>
-                <div className="ad-action">
+    
+            </div> 
+        )        
+    }
 
-                </div>
-            </div>
+    return (
+        <>
+            {loaderState ? <Loading  /> : to_render()}
+        </>
 
-        </div>
     )
 }

@@ -4,6 +4,7 @@ import './Home.css';
 import CategorySlider from "../components/CategorySlider";
 import AdCard from "../components/AdCard";
 import {axios} from "../api.js";
+import { Link } from 'react-router-dom';
 
 export default function Home(){
     const [ads , setAds] = useState([]) ;
@@ -43,7 +44,9 @@ export default function Home(){
                 <div className="home-ads">
                     {ads.map((item , index) => {
                         return(
-                            <AdCard image = {'http://127.0.0.1:8000' + item.images} category = {item.category} title = {item.title} price = {item.price} />
+                            <Link to = {`/product/${item.id}`}>
+                                <AdCard image = {'http://127.0.0.1:8000' + item.images} category = {item.category} title = {item.title} price = {item.price} />
+                            </Link>
                         )
                     })}
                     {/* {console.log(ads)} */}

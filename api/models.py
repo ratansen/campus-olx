@@ -1,4 +1,5 @@
 from distutils.command.upload import upload
+from email.policy import default
 from pyexpat import model
 from tkinter.ttk import Separator
 from django.db import models
@@ -27,6 +28,13 @@ class Product(models.Model):
     negotiable = models.BooleanField(default=False)
 
 
-
     def __str__(self):
         return str(self.title)   
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, related_name="product_images", on_delete=models.CASCADE, null = True)
+    image = models.ImageField(upload_to = "ads_images", null = True, blank = True)
+
+    def __str__(self):
+        return (str(self.image))

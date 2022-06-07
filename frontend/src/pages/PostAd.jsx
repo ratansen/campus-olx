@@ -20,8 +20,9 @@ export default function PostAd() {
         price: "",
         price_type: "",
         description: "",
-        images: undefined
+        images: []
     })
+    const [files, setFiles] = useState([])
     const header = {
         "Content-Type": "multipart/form-data"
     }
@@ -33,13 +34,24 @@ export default function PostAd() {
         formData.append("price", inputs.price)
         formData.append("negotiable", inputs.price_type === "negotiable")
         formData.append("description", inputs.description)
-        formData.append("images", inputs.images)
+        console.log(inputs.images)
+        for (let i = 0; i <= inputs.images.length; i++) {
+            if(i === inputs.images.length){
+                axios.post('products/', formData, header).then((response) => {
+                    console.log("done");
+                    console.log(formData.get("product_images"))
+                  })
+                // postNow();
+                break;
+            }
+            formData.append("product_images", inputs.images[i])
+            
+        }
 
-        axios.post('products/', formData, header).then((response) => {
-            console.log("done");
-          })
+        // function postNow(){
+        // }
         console.log("working");
-        console.log(inputs)
+        // console.log(inputs)
     }
 
     function handleChange(event){
@@ -52,11 +64,12 @@ export default function PostAd() {
     }
 
     function handleFile(event){
-        const val = event.target.files[0]
+        const val = event.target.files
         setInputs({
             ...inputs,
             [event.target.name]: val
         })
+        console.log(val)
     }
 
 
@@ -145,7 +158,7 @@ export default function PostAd() {
                     </div>
                     <div className="input-input" style={{ border: '2px dashed black' }}>
 
-                        <input name="images" type='file' className="choose-file" onChange={handleFile} >
+                        <input name="images" type='file' className="choose-file" onChange={handleFile} multiple>
 
                         </input>
                     </div>

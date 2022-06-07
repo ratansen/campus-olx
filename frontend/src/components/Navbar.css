@@ -159,3 +159,8 @@
       display: none;
     }
   }
+  .login-button{
+      font-size: 2rem;
+      color: #fff;
+      margin-right: 15px;
+  }

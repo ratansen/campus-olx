@@ -1,5 +1,6 @@
 import React from "react";
 import './CategorySlider.css';
+import { Link } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css'
@@ -39,9 +40,12 @@ export default function CategorySlider() {
             >
                 {CategoryData.map((item, index)=>{
                     return (
-                        <SwiperSlide>
-                            <Box icon = {item.icon} title = {item.title} number = {item.number} path = {item.path} />
-                        </SwiperSlide>
+                            <SwiperSlide>
+                        <Link to = 'category/' state={{cat: item.title}} >
+                                <Box icon = {item.icon} title = {item.title} number = {item.number} path = {item.path} />
+                        </Link>
+                            </SwiperSlide>
+
                     )
                 })}
                 

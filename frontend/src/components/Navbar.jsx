@@ -3,6 +3,8 @@ import Button from './Button.jsx';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import Dropdown from './Dropdown.jsx';
+import {BiLogInCircle} from 'react-icons/bi'
+import { SignInButton } from './SignInButton.jsx';
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -100,6 +102,8 @@ function Navbar() {
             </Link>
           </li>
         </ul>
+        {/* <BiLogInCircle className='login-button' /> */}
+        <SignInButton className='login-button'/>
         <Button />
       </nav>
     </>
