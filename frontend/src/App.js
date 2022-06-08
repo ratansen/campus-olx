@@ -9,13 +9,21 @@ import PostAd from './pages/PostAd';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from "@azure/msal-react";
 import { loginRequest } from "./authConfig";
 import { useIsAuthenticated } from "@azure/msal-react";
+import { axios } from './api';
 
-
+const header = {
+    "Content-Type": "multipart/form-data"
+}
 function App() {
     const { instance, accounts, inProgress } = useMsal();
     const name = accounts[0] && accounts[0].name;
     if(name){
-        console.log(accounts[0]);
+        var formData = new FormData()
+        formData.append('user', accounts[0].username)
+
+        console.log(accounts[0].username);
+        axios.post('login/', formData, header).then(console.log("data"))
+        console.log(accounts[0].username)
     }
     else console.log("no")
 
@@ -69,6 +77,19 @@ function ProfileContent() {
         // Silently acquires an access token which is then attached to a request for Microsoft Graph data
         instance.acquireTokenSilent(request).then((response) => {
             setAccessToken(response.accessToken, console.log(accessToken));
+            axios.get('login/', {
+                params:{
+                    token: response.accessToken
+                }
+            }).then((response) => {
+                
+              }).catch((error) => {
+                        if (error.response) {
+                          console.log(error.response);
+                          console.log(error.response.status);
+                          console.log(error.response.headers);
+                          }
+                      });
 
         }).catch((e) => {
             instance.acquireTokenPopup(request).then((response) => {

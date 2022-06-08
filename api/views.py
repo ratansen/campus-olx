@@ -1,3 +1,6 @@
+from django.http import HttpResponse
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,logout,login
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -6,7 +9,21 @@ from rest_framework.parsers import FileUploadParser, MultiPartParser, FormParser
 from .serializers import ProductSerializer, PostViewSetSerializer
 from .models import Product
 from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
+import jwt
 
+def login_user(request, *args, **kwargs):
+    if request.method == 'POST':
+        user = request.POST.get('user', None)
+        print(user)
+        if user:
+            if User.objects.filter(username = user).exists():
+                user = User.objects.filter(username = user)
+                print("exists")
+                login(user, request)
+            else:
+                print("doesnot exits")
+        return HttpResponse({"logged in": "user"}, content_type="application/json")
 
 
 class ProductViews(APIView):
@@ -18,7 +35,7 @@ class ProductViews(APIView):
         print(product_images)
         data = request.data.copy()
         # data.pop('product_images')
-        print(data)
+        print(request.data)
         
         serializer = PostViewSetSerializer(data=data, context = {'product_images': product_images})
         print(serializer)
@@ -30,6 +47,7 @@ class ProductViews(APIView):
     
     # get
     def get(self, request, id = None):
+        print(request.user)
         # id = request.query_params.get('id', None)
         print(id)
         if id:
@@ -67,3 +85,5 @@ class ProductViews(APIView):
         item = get_object_or_404(Product, id=id)
         item.delete()
         return Response({"status": "success", "data": "Item Deleted"})
+
+
