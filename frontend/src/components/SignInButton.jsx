@@ -29,7 +29,7 @@ export const SignInButton = () => {
     }
 
     return (<>
-    {useIsAuthenticated ? <BiLogInCircle style={style} onClick={() => handleLogin(instance)} /> : <BiLogOutCircle style={style} onClick={() => handleLogout(instance)} />}
+        <BiLogInCircle style={style} />
         
     </>
 

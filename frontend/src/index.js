@@ -2,16 +2,29 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { PublicClientApplication } from "@azure/msal-browser";
-import { MsalProvider } from "@azure/msal-react";
-import { msalConfig } from "./authConfig";
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const msalInstance = new PublicClientApplication(msalConfig);
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: "rgb(0, 165, 145)" // This is an orange looking color
+        },
+        // secondary: {
+            // main: "#ffcc80" //Another orange-ish color
+        // }
+    },
+    typography: {
+        fontFamily: 'Quicksand',
+        color: "white"
+        }
+});
+
 root.render(
-    <MsalProvider instance={msalInstance}>
+    <ThemeProvider theme = {theme}>
         <App />
-    </MsalProvider>
+    </ThemeProvider>
 );
 
 

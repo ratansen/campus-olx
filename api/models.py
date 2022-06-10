@@ -1,11 +1,8 @@
-from distutils.command.upload import upload
-from email.policy import default
-from pyexpat import model
-from tkinter.ttk import Separator
 from django.db import models
 import uuid
-from django.forms import IntegerField
-
+from users.models import NewUser
+from django.utils import timezone
+from django.conf import settings
 # Create your models here.
 class Product(models.Model):
     
@@ -24,9 +21,9 @@ class Product(models.Model):
     category = models.CharField(max_length=63, choices=category_list, default='Electronics')
     price = models.PositiveIntegerField()
     description = models.TextField()
-    images = models.ImageField(upload_to = "ads_images", null = True, blank = True)
     negotiable = models.BooleanField(default=False)
-
+    posted_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='user', on_delete=models.CASCADE)
+    posted_on = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return str(self.title)   
