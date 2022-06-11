@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import './Navbar.css';
 import Dropdown from './Dropdown.jsx';
 import { BiLogInCircle } from 'react-icons/bi'
+import { BiUserCircle } from 'react-icons/bi';
+import Button from './Button';
 
 import Box from '@mui/material/Box';
 
@@ -10,8 +12,8 @@ import Modal from '@mui/material/Modal';
 
 import Register from './Register';
 import Login from './Login';
-
-
+import { useSelector } from 'react-redux';
+import AccountMenu from './Menu'
 const style = {
     position: 'absolute',
     top: '50%',
@@ -25,12 +27,16 @@ const style = {
     zIndex: "10000",
     p: 4,
     fontSize: '5px',
+    overflowY: 'auto'
 };
 
 function Navbar() {
-    const [open, setOpen] = React.useState(true);
+
+    const email = useSelector((state: RootState) => state.auth.email)
+
+    const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {setOpen(false); setOpenLogin(true)}
     const [openLogin, setOpenLogin] = useState(true);
     const [click, setClick] = useState(false);
     const [dropdown, setDropdown] = useState(false);
@@ -47,7 +53,7 @@ function Navbar() {
 
     const onMouseLeave = () => {
         if (window.innerWidth < 960) {
-            setDropdown(false);
+            setDropdown(true);
         } else {
             setDropdown(false);
         }
@@ -77,6 +83,7 @@ function Navbar() {
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+            
             >
                 <Box sx={style}>
                     {openLogin ? <Login changeState={openLogin => setOpenLogin(openLogin)}/> : <Register changeState={openLogin => setOpenLogin(openLogin)}/>}
@@ -92,7 +99,7 @@ function Navbar() {
                     <i class='fab fa-firstdraft' />
                 </Link>
                 <div className='menu-icon' onClick={handleClick}>
-                    <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
+                    <i className={click ? 'fas fa-times' : 'fas fa-bars'} >Click</i>
                 </div>
                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                     <li className='nav-item'>
@@ -110,7 +117,7 @@ function Navbar() {
                             className='nav-links'
                             onClick={closeMobileMenu}
                         >
-                            Services <i className='fa fa-angle-down' />
+                            Categories <i className='fa fa-angle-down' />
                         </Link>
                         {dropdown && <Dropdown />}
                     </li>
@@ -142,7 +149,12 @@ function Navbar() {
                         </Link>
                     </li>
                 </ul>
+                {email ? 
+                <AccountMenu />
+                :
                 <BiLogInCircle onClick={handleOpen} className='login-button' />
+                }
+                <Button />
 
             </nav>
         </>
