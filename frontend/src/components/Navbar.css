@@ -78,7 +78,24 @@
     display: none;
 }
 
+.nav-drawer{
+    display: none;
+}
+
+.nav-icons {
+    font-size: 2rem;
+    color: #fff;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 960px) {
+    .navbar{
+        justify-content: end;
+        height: 80px;
+        background-color: #fff;
+        color: var(--blue);
+    }
     .NavbarItems {
         position: relative;
     }
@@ -94,7 +111,12 @@
         opacity: 1;
         transition: all 0.5s ease;
     }
-
+    .nav-icons {
+        font-size: 2rem;
+        color: var(--blue);
+        margin-right: 15px;
+        cursor: pointer;
+    }
     .nav-menu.active {
         background: #242222;
         left: 0;
@@ -119,7 +141,9 @@
         position: absolute;
         top: 0;
         left: 0;
-        transform: translate(25%, 50%);
+        transform: translate(25%, 70%);
+        font-size: 1.5rem;
+        color: var(--dark);
     }
 
     .menu-icon {
@@ -130,11 +154,6 @@
         transform: translate(-100%, 60%);
         font-size: 1.8rem;
         cursor: pointer;
-    }
-
-    .fa-times {
-        color: #fff;
-        font-size: 2rem;
     }
 
     .nav-links-mobile {
@@ -158,6 +177,10 @@
 
     nav button {
         display: none;
+    }
+
+    .nav-drawer{
+        display: block;
     }
 }
 

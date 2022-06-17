@@ -2,12 +2,7 @@
     font-family: var(--font1);
 }
 
-.login-button {
-    font-size: 2rem;
-    color: #fff;
-    margin-right: 15px;
-    cursor: pointer;
-}
+
 .auth-wrapper h2{
     font-size: 1.2rem;
     margin-bottom: 60px;

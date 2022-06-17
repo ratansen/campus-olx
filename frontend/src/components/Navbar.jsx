@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import Dropdown from './Dropdown.jsx';
 import { BiLogInCircle } from 'react-icons/bi'
 import { BiUserCircle } from 'react-icons/bi';
 import Button from './Button';
+import NavDrawer from './NavDrawer';
 
 import Box from '@mui/material/Box';
 
@@ -38,14 +39,23 @@ function Navbar() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => {setOpen(false); setOpenLogin(true)}
     const [openLogin, setOpenLogin] = useState(true);
-    const [click, setClick] = useState(false);
     const [dropdown, setDropdown] = useState(false);
-    const handleClick = () => setClick(!click);
-    const closeMobileMenu = () => setClick(false);
+
+    const [isMobile, setMobile] = useState(window.innerWidth > 1450);
+
+    const updateScreen = () => {
+      setMobile(window.innerWidth < 960);
+    };
+  
+    useEffect(() => {
+      window.addEventListener("resize", updateScreen);
+      return () => window.removeEventListener("resize", updateScreen);
+    });
+
 
     const onMouseEnter = () => {
         if (window.innerWidth < 960) {
-            setDropdown(false);
+            setDropdown(true);
         } else {
             setDropdown(true);
         }
@@ -94,16 +104,16 @@ function Navbar() {
 
 
             <nav className={scrolled ? "navbar navbar-color" : "navbar"}>
-                <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
+                <Link to='/' className='navbar-logo'>
                     EPIC
                     <i class='fab fa-firstdraft' />
                 </Link>
-                <div className='menu-icon' onClick={handleClick}>
+                {/* <div className='menu-icon' onClick={handleClick}>
                     <i className={click ? 'fas fa-times' : 'fas fa-bars'} >Click</i>
-                </div>
-                <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+                </div> */}
+                <ul className='nav-menu'>
                     <li className='nav-item'>
-                        <Link to='/' className='nav-links' onClick={closeMobileMenu}>
+                        <Link to='/' className='nav-links'>
                             Home
                         </Link>
                     </li>
@@ -113,9 +123,8 @@ function Navbar() {
                         onMouseLeave={onMouseLeave}
                     >
                         <Link
-                            to='/services'
+                            to='/'
                             className='nav-links'
-                            onClick={closeMobileMenu}
                         >
                             Categories <i className='fa fa-angle-down' />
                         </Link>
@@ -125,7 +134,6 @@ function Navbar() {
                         <Link
                             to='/products'
                             className='nav-links'
-                            onClick={closeMobileMenu}
                         >
                             Products
                         </Link>
@@ -134,27 +142,18 @@ function Navbar() {
                         <Link
                             to='/contact-us'
                             className='nav-links'
-                            onClick={closeMobileMenu}
                         >
                             Contact Us
                         </Link>
                     </li>
-                    <li>
-                        <Link
-                            to='/sign-up'
-                            className='nav-links-mobile'
-                            onClick={closeMobileMenu}
-                        >
-                            Sign Up
-                        </Link>
-                    </li>
                 </ul>
-                {email ? 
-                <AccountMenu />
-                :
-                <BiLogInCircle onClick={handleOpen} className='login-button' />
-                }
                 <Button />
+                {email ? 
+                <AccountMenu className='nav-icons'/>
+                :
+                <BiLogInCircle onClick={handleOpen} className='nav-icons' />
+                }
+                {isMobile && <NavDrawer className='nav-icons' />}
 
             </nav>
         </>

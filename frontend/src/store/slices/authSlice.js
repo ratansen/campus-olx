@@ -1,10 +1,12 @@
 import jwtDecode from "jwt-decode";
 import { createSlice } from '@reduxjs/toolkit'
 
+const user = localStorage.getItem("access_token") ? jwtDecode(localStorage.getItem("access_token")) : null;
+
 const initialState = {
   token: localStorage.getItem("access_token"),
   username: null,
-  email: null,
+  email: user ? user.email : null,
   id: null,
 };
 

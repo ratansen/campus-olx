@@ -1,3 +1,4 @@
+from math import prod
 from rest_framework import serializers
 from rest_framework import exceptions
 from .models import Product, ProductImage
@@ -13,7 +14,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta():
         model = Product
-        fields = ['id', 'title', 'category', 'price', 'negotiable', 'description', 'product_images']
+        fields = ['id', 'title', 'category', 'price', 'negotiable', 'description', 'product_images', 'posted_by']
         
  
 

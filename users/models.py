@@ -36,6 +36,9 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(unique=True)
     user_name = models.CharField(max_length=150, unique=True)
+    mobile_number = models.IntegerField(null=True)
+    # hostel = models.CharField(max_length=63, null=True)
+
 
 
     is_staff = models.BooleanField(default=False)

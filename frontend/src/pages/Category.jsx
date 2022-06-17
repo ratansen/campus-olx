@@ -5,6 +5,11 @@ import AdCard from "../components/AdCard";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+
+
 export default function Category(){
     const location = useLocation()
     const {cat} = location.state
@@ -26,6 +31,8 @@ export default function Category(){
                 });
       },[])
 
+    
+
     console.log(cat)
     return(
         <div className="category-wrapper">
@@ -36,6 +43,7 @@ export default function Category(){
                     <input className="filter-input-field"  id="keyword" placeholder="Search for..."></input>
                 </div>
                 <div>
+
                     <span className="filter-type">Category</span>
                     <div className="category-checkboxes">
                     <div className="checkbox">
