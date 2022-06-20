@@ -21,13 +21,17 @@ export const authSlice = createSlice({
         state.email = user.email;
         state.id = user.user_id;
       },
+        unload_user: (state, action) => {
+        state.username = null;
+        state.email = null;
+        state.id = null;
+      },
     },
   })
   
 export const {load_user} = authSlice.actions
+export const {unload_user} = authSlice.actions
 
-
-export const selectCount = (state) => state.counter.value
 
 export default authSlice.reducer
   

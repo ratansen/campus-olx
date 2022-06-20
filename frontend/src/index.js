@@ -21,7 +21,14 @@ const theme = createTheme({
     typography: {
         fontFamily: 'Quicksand',
         color: "white"
+        },
+    overrides: {
+        MuiFormControlLabel: {
+            label: {
+                fontSize: '0.575rem',
+            }
         }
+    }
 });
 
 

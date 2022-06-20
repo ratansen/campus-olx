@@ -66,22 +66,19 @@ class ProductViews(APIView):
             return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
 
         keyword = request.query_params.get('keyword', None)
-        category = request.query_params.getlist('category', None)
+        category = request.query_params.get('category', None)
         price_from = request.query_params.get('price_from', None)
         price_to = request.query_params.get('price_to', None)
 
         items = Product.objects.all()
 
         if keyword:
-            lookups = Q(title__icontains=keyword) | Q(description__icontains=keyword) | Q(posted_by__icontains = keyword)
+            lookups = Q(title__icontains=keyword) | Q(description__icontains=keyword) | Q(posted_by__user_name__icontains = keyword)
             items = items.filter(lookups).distinct()
 
         if category:
-            lookups = Q()
-            for i in category:
-                lookups |= Q(category__icontains = i)
-            items = items.filter(lookups).distinct()
-            print(items)
+            category = category.split(',')
+            items = items.filter(category__in = category)
         
         if price_from:
             try:

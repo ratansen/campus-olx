@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 import Dropdown from './Dropdown.jsx';
 import { BiLogInCircle } from 'react-icons/bi'
@@ -13,7 +13,8 @@ import Modal from '@mui/material/Modal';
 
 import Register from './Register';
 import Login from './Login';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { open_login, open_register, closeAll } from '../store/slices/authModalSlice';
 import AccountMenu from './Menu'
 const style = {
     position: 'absolute',
@@ -33,23 +34,30 @@ const style = {
 
 function Navbar() {
 
-    const email = useSelector((state: RootState) => state.auth.email)
+    const dispatch = useDispatch()
 
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => {setOpen(false); setOpenLogin(true)}
-    const [openLogin, setOpenLogin] = useState(true);
+    const email = useSelector((state: RootState) => state.auth.email)
+    const openModal = useSelector((state: RootState) => state.authModal.openModal)
+    const openLogin = useSelector((state: RootState) => state.authModal.openLogin)
+    const openRegister = useSelector((state: RootState) => state.authModal.openRegister)
+
+
     const [dropdown, setDropdown] = useState(false);
 
-    const [isMobile, setMobile] = useState(window.innerWidth > 1450);
+    const [isMobile, setMobile] = useState(window.innerWidth < 960);
+
+    const handleOpen = () => {
+        dispatch(open_login());
+    }
 
     const updateScreen = () => {
       setMobile(window.innerWidth < 960);
     };
   
     useEffect(() => {
-      window.addEventListener("resize", updateScreen);
-      return () => window.removeEventListener("resize", updateScreen);
+        
+        window.addEventListener("resize", updateScreen);
+        return () => window.removeEventListener("resize", updateScreen);
     });
 
 
@@ -89,14 +97,14 @@ function Navbar() {
             {/* auth modal */}
 
             <Modal
-                open={open}
-                onClose={handleClose}
+                open={openModal}
+                onClose={() => dispatch(closeAll())}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             
             >
                 <Box sx={style}>
-                    {openLogin ? <Login changeState={openLogin => setOpenLogin(openLogin)}/> : <Register changeState={openLogin => setOpenLogin(openLogin)}/>}
+                    {openLogin ? <Login /> : <Register />}
                 </Box>
 
             </Modal>
@@ -151,7 +159,7 @@ function Navbar() {
                 {email ? 
                 <AccountMenu className='nav-icons'/>
                 :
-                <BiLogInCircle onClick={handleOpen} className='nav-icons' />
+                <BiLogInCircle onClick={() => dispatch(open_login())} className='nav-icons' />
                 }
                 {isMobile && <NavDrawer className='nav-icons' />}
 

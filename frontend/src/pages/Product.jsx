@@ -26,19 +26,27 @@ import Loading from "../components/Loader";
 export default function Product() {
 
     const [ad, setAd] = useState([]);
-    var [loaderState, setLoaderState] = useState(true) ; 
+    var [loaderState, setLoaderState] = useState(true);
     const [slider, setSlider] = useState()
+    const [thumbs, setThumbs] = useState()
     const { id } = useParams()
 
     const fetchData = async () => axios.get(`products/${id}`).then((response) => {
-        setAd(response.data.data, () =>  console.log(ad));
+        setAd(response.data.data, () => console.log(ad));
         const images = response.data.data.product_images;
 
         setSlider(() => images.map((item, key) => {
             console.log(images)
             return (
-                <SwiperSlide className="main-image">
-                    <img src={'http://127.0.0.1:8000' + item["image"]} />
+                <SwiperSlide>
+                    <div className="slider-image">
+                        <div className="blurred">
+                            <img src={'http://127.0.0.1:8000' + item["image"]} alt=""></img>
+
+                        </div>
+                        <img src={'http://127.0.0.1:8000' + item["image"]} alt=""></img>
+                    </div>
+
 
 
                 </SwiperSlide>
@@ -54,16 +62,16 @@ export default function Product() {
 
 
 
-    
-    
+
+
     useEffect(() => {
         fetchData();
     }, [])
-    
-    
+
+
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
-    const to_render = function() {
+    const to_render = function () {
 
         return (
 
@@ -71,10 +79,10 @@ export default function Product() {
                 <div className="product-header">
                     {ad.title}
                 </div>
-    
+
                 <div className="product-body">
                     <div className="carausal">
-    
+
                         <Swiper
                             style={{
                                 "--swiper-navigation-color": "#fff",
@@ -91,27 +99,38 @@ export default function Product() {
                             thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
                             modules={[FreeMode, Navigation, Thumbs]}
                             className="mySwiper2"
-    
+
                         >
-    
+
 
                             {slider}
                         </Swiper>
                         <Swiper
                             onSwiper={setThumbsSwiper}
                             spaceBetween={10}
-    
+
                             slidesPerView={4}
                             freeMode={true}
                             watchSlidesProgress={true}
                             modules={[FreeMode, Navigation, Thumbs]}
                             className="mySwiper"
-    
-    
+
+
                         >
                             {slider}
-                      
+
                         </Swiper>
+                        <div className="product-bottom">
+                            <div className="product-desc">
+                                <h2>Description</h2>
+                                <p>
+                                    {ad.description}
+                                </p>
+                            </div>
+                            <div className="ad-action">
+
+                            </div>
+                        </div>
                     </div>
                     <div className="product-info">
                         <div className="price"> &#x20B9; {ad.price}</div>
@@ -119,42 +138,34 @@ export default function Product() {
                             <span>Ad Owner</span>
                             <div className="owner-name">
                                 <FaUserCircle className="user-icon" />
-                                Ratan Sen
+                                <span style={{verticalAlign:"sub"}}>Ratan Sen</span><br />
+                                <span style={{ fontSize: "0.7rem", verticalAlign: "top" }}>B.Tech</span>
                             </div>
-                            <a href="tel:902609">
-    
-                                <div className="owner-contact">
-                                    <FiPhoneCall className="call" /> +919026919595
-                                </div>
-                            </a>
-                            <a href="https://wa.me/9026902690">
-    
-                                <div className="owner-contact" >
-                                    <FaWhatsapp className="call" /> +919026919595
-                                </div>
-                            </a>
+                            <div className="contact">
+                                <a href="tel:902609">
+
+                                    <div className="owner-contact">
+                                        <FiPhoneCall className="call" /> Call
+                                    </div>
+                                </a>
+                                <a href="https://wa.me/9026902690">
+
+                                    <div className="owner-contact" >
+                                        <FaWhatsapp className="call" /> Message
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="product-bottom">
-                    <div className="product-desc">
-                        <h2>{ad.title}</h2>
-                        <p>
-                            {ad.description}
-                        </p>
-                    </div>
-                    <div className="ad-action">
-    
-                    </div>
-                </div>
-    
-            </div> 
-        )        
+
+            </div>
+        )
     }
 
     return (
         <>
-            {loaderState ? <Loading  /> : to_render()}
+            {loaderState ? <Loading /> : to_render()}
         </>
 
     )

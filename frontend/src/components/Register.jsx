@@ -2,9 +2,14 @@ import React, {useState, useHistory} from "react";
 import { Divider } from "@mui/material";
 import './Auth.css';
 import { axios } from "../api";
+import { open_login } from "../store/slices/authModalSlice";
+import { useDispatch } from "react-redux";
 
 
-export default function Register(props){
+export default function Register(){
+
+    const dispatch = useDispatch()
+
 	// const initialFormData = Object.freeze({
 	// 	email: '',
 	// 	username: '',
@@ -72,7 +77,7 @@ export default function Register(props){
                 <button type="submit" onClick={handleSubmit}>Register</button>
                 <center><span>Resend Verification</span></center>
                 <Divider style={{fontSize: '0.7rem', margin: '30px 0'}}><p >OR</p></Divider>
-                <center>Already have an account? <span onClick={() => props.changeState(true)}> Login here</span></center>
+                <center>Already have an account? <span onClick={() => dispatch(open_login())}> Login here</span></center>
             </div>           
         </div>
     )

@@ -1,11 +1,14 @@
 import React, {useState} from "react";
+import {useNavigate} from "react-router-dom"
 import { Divider } from "@mui/material";
 import './Auth.css'
 import { axios } from "../api";
 import { useSelector, useDispatch } from 'react-redux'
 import { load_user } from "../store/slices/authSlice";
 
-export default function Login(props){
+import { closeAll, open_register } from "../store/slices/authModalSlice";
+
+export default function Login(){
     const dispatch = useDispatch()
 
 	const [formData, updateFormData] = useState({
@@ -19,6 +22,8 @@ export default function Login(props){
 			[e.target.name]: e.target.value.trim(),
 		});
 	};
+
+    const navigate = useNavigate();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -38,6 +43,10 @@ export default function Login(props){
 				console.log(res);
                 dispatch(load_user(res.data.access))
 				//console.log(res.data);
+                navigate("/")
+                dispatch(closeAll())
+                
+
 			});
 	};
 
@@ -61,7 +70,7 @@ export default function Login(props){
                 <button onClick={handleSubmit}>Login</button>
                 <center><span>Forgot Password?</span></center>
                 <Divider style={{fontSize: '0.7rem', margin: '30px 0'}}><p >OR</p></Divider>
-                <center>Don't have account? <span onClick={() => props.changeState(false)}> Register here</span></center>
+                <center>Don't have account? <span onClick={() => dispatch(open_register())}> Register here</span></center>
             </div>
 
         </div>
