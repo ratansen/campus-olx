@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import './CategorySlider.css';
 import { Link } from "react-router-dom";
 
@@ -23,7 +23,23 @@ function Box({ icon, title, number, path }) {
     )
 }
 
+
+
+
 export default function CategorySlider() {
+
+    const [numSlide, setNumSlide] = useState(5);
+
+    const updatenum = () => {
+        const sz = window.innerWidth
+        setNumSlide((sz * 4) / 1200)
+    }
+
+    useEffect(() => {
+        
+        window.addEventListener("resize", updatenum);
+        return () => window.removeEventListener("resize", updatenum);
+    });
     // musical instru, stationary, notes, vehicle, electronics, sports
     return (
         <div className="category-slider-wrapper">
@@ -31,7 +47,7 @@ export default function CategorySlider() {
                 className="swiper-wrapper"
 
                 modules={[Navigation]}
-                slidesPerView={5}
+                slidesPerView={numSlide}
                 navigation={{
                     clickable: true,
                     prevEl: '#prevcat',

@@ -1,10 +1,11 @@
 .postad-wrapper{
     background-color: #fff;
     width: 85vw;
-    margin: 200px auto;
+    margin: 50px auto;
     display: flex;
     flex-direction: column;
     min-height: 200vh;
+    padding-bottom: 30px;
 }
 .ad-info-input{
     width: 90%;
@@ -14,7 +15,7 @@
 
 .input-header{
     width: 100%;
-    padding: 10px 20px 22px 10px;
+    padding: 10px 20px 15px 10px;
     border-bottom: 1px solid var(--bluer);
     font-size: 1.1rem;
     font-family: var(--font2);
@@ -51,5 +52,44 @@
 } 
 
 .submit-ad{
+    width: 80%;
+    padding: 18px;
+    margin: auto;
+    border: none;
+    background-color: var(--blue);
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
     
+}
+option {
+    padding: 40px;
+}
+
+
+@media only screen and (max-width: 600px){
+
+    .input-body{
+        flex-direction: column;
+        gap: 8px;
+        font-size: 0.8rem;
+
+    }
+    .label{
+        width: 100%;
+        text-align: left;
+        padding: 0;
+    }
+    .postad-wrapper{
+        width: 95%;
+    }
+    .input-header{
+        font-size: 1rem;
+        padding: 10px 20px 10px 10px;
+    }
+    option{
+        font-size: 0.8rem;
+    }
+
 }

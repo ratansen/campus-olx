@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import Dropdown from './Dropdown.jsx';
 import { BiLogInCircle } from 'react-icons/bi'
@@ -35,6 +35,12 @@ const style = {
 function Navbar() {
 
     const dispatch = useDispatch()
+    const navigator = useNavigate()
+    const [atHome, setAtHome] = useState(true)
+
+    const changeNavOnNavigate = {
+
+    }
 
     const email = useSelector((state: RootState) => state.auth.email)
     const openModal = useSelector((state: RootState) => state.authModal.openModal)
@@ -55,10 +61,17 @@ function Navbar() {
     };
   
     useEffect(() => {
-        
+        if (window.location.pathname === "/") {
+            setAtHome(true);
+        } else {
+            setAtHome(false)
+        }
         window.addEventListener("resize", updateScreen);
         return () => window.removeEventListener("resize", updateScreen);
-    });
+
+    }, [navigator]);
+
+    console.log("atHome", atHome);
 
 
     const onMouseEnter = () => {
@@ -80,7 +93,7 @@ function Navbar() {
 
     const [scrolled, setScrolled] = useState(false);
     const changeNavbarColor = () => {
-        if (window.scrollY >= 40) {
+        if (window.scrollY >= 80) {
             setScrolled(true);
         }
         else {
@@ -111,9 +124,9 @@ function Navbar() {
 
 
 
-            <nav className={scrolled ? "navbar navbar-color" : "navbar"}>
+            <nav className={!scrolled ? atHome ? "navbar" : "navbar notAtHomeNotScrolled" : "navbar navbar-color" }  >
                 <Link to='/' className='navbar-logo'>
-                    EPIC
+                    CLA-C
                     <i class='fab fa-firstdraft' />
                 </Link>
                 {/* <div className='menu-icon' onClick={handleClick}>
@@ -132,7 +145,7 @@ function Navbar() {
                     >
                         <Link
                             to='/'
-                            className='nav-links'
+                            className='nav-links'    
                         >
                             Categories <i className='fa fa-angle-down' />
                         </Link>
@@ -140,8 +153,9 @@ function Navbar() {
                     </li>
                     <li className='nav-item'>
                         <Link
-                            to='/products'
+                            to='category/'
                             className='nav-links'
+                            state={{}}
                         >
                             Products
                         </Link>

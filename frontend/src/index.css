@@ -12,6 +12,29 @@
     /* font-family: 'Quicksand', 'Open sans'; */
     /* transition: 0.5s; */
 }
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #fff;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    /* background: rgb(0, 165, 145, 0.3); */
+    background: rgb(55, 65, 82, 0.5);
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--dark);
+  }
+
+
 body, html{
     overflow-x: hidden;
     /* background-color: #f9f9f9; */

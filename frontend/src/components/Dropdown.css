@@ -5,15 +5,18 @@
     top: 80px;
     list-style: none;
     text-align: start;
+    -webkit-box-shadow: 0px 0px 16px -1px rgba(0,0,0,0.47);
+    -moz-box-shadow: 0px 0px 16px -1px rgba(0,0,0,0.47);
+    box-shadow: 0px 0px 16px -1px rgba(0,0,0,0.47);
   }
   
   .dropdown-menu li {
-    background: #1888ff;
+    background: var(--dark);
     cursor: pointer;
   }
   
   .dropdown-menu li:hover {
-    background: #5cabff;
+    background: var(--bluer);
   }
   
   .dropdown-menu.clicked {
@@ -27,6 +30,13 @@
     text-decoration: none;
     color: #fff;
     padding: 16px;
+    font-size: 0.9rem;
+    vertical-align: middle;
+  }
+  .category-icon{
+    margin-right: 15px;
+    vertical-align:text-bottom;
+    margin-top: 10px;
   }
   
   @media screen and (max-width: 960px) {

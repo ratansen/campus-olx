@@ -12,6 +12,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import TextField from '@mui/material/TextField';
+import PageHeader from "../components/PageHeader";
 
 
 export default function Category(){
@@ -88,14 +89,16 @@ export default function Category(){
 
     
 
-    console.log(cat)
     return(
+        <>
+        <PageHeader name = "Products" navigation = ""/>
+
         <div className="category-wrapper">
             <div className="category-leftdiv">
                 <span>Filter Ads</span>
                 <div>
                     <span className="filter-type">Keyword</span>
-                    <input className="filter-input-field"  id="keyword" placeholder="Search for..."></input>
+                    <input className="filter-input-field"  id="keyword" value={keyword}placeholder="Search for..." onChange={(e) => setKeyword(e.target.value)}></input>
                 </div>
                 <div>
                     <span className="filter-type">Category</span>
@@ -158,5 +161,7 @@ export default function Category(){
             </div>
 
         </div>
+    </>
+
     )
 }

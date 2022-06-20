@@ -2,6 +2,7 @@ import React, {useEffect, useState, useRef} from "react";
 import './PostAd.css';
 import { axios } from "../api";
 import { CategoryData } from "../CategoryData";
+import PageHeader from "../components/PageHeader";
 
 export default function PostAd() {
 
@@ -74,6 +75,9 @@ export default function PostAd() {
 
 
     return (
+        <>
+
+        <PageHeader name="Submit Ad"/>
         <div className="postad-wrapper">
             <div className="ad-info-input">
                 <div className="input-header">
@@ -166,5 +170,7 @@ export default function PostAd() {
             </div>
             <button className="submit-ad" onClick={post}>Submit</button>
         </div>
+    </>
+
     )
 }
