@@ -103,8 +103,8 @@ a{
     .navbar{
         justify-content: end;
         height: 80px;
-        background-color: #fff;
-        color: var(--blue);
+        /* background-color: #fff; */
+        /* color: var(--blue); */
         padding: 0;
     }
     .NavbarItems {
@@ -154,7 +154,7 @@ a{
         left: 0;
         transform: translate(25%, 70%);
         font-size: 1.5rem;
-        color: var(--dark);
+        /* color: var(--dark); */
         margin-left: 0px;
     }
 

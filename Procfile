@@ -1,0 +1,1 @@
+web: gunicorn capmus_olx.wsgi
