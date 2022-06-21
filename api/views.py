@@ -15,7 +15,6 @@ from .serializers import ProductSerializer, PostViewSetSerializer
 from .models import Product
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
-import jwt
 
 def login_user(request, *args, **kwargs):
     if request.method == 'POST':
