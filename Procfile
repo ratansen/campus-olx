@@ -1,1 +1,1 @@
-web: gunicorn capmus_olx.wsgi
+web:gunicorn capmus_olx.wsgi
