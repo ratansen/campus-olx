@@ -59,7 +59,7 @@ export default function Home() {
                     {ads.map((item, index) => {
                         return (
                             <Link to={`/product/${item.id}`}>
-                                <AdCard image={'http://127.0.0.1:8000' + (item.product_images.length > 0 ? item.product_images[0].image :
+                                <AdCard image={'https://campus-olx.herokuapp.com' + (item.product_images.length > 0 ? item.product_images[0].image :
                                     "")} category={item.category} title={item.title} price={item.price} />
                             </Link>
                         )

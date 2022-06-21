@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
     'rest_framework_simplejwt',
     'users',
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
+    'cloudinary',
 ]
 
 
@@ -122,8 +124,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-MEDIA_URL = '/staticfiles/image_uploads/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'staticfiles/image_uploads')
+MEDIA_URL = 'image_uploads/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'image_uploads')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -165,6 +167,11 @@ SIMPLE_JWT = {
     'TOKEN_TYPE_CLAIM': 'token_type',
 }
 
-
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dfk9jnkfg',
+    'API_KEY': '149862417792542',
+    'API_SECRET': 'zQAus8g_rR4llnL9mp466PgWGLI',
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 django_heroku.settings(locals())

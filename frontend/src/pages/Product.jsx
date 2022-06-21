@@ -41,10 +41,10 @@ export default function Product() {
                 <SwiperSlide>
                     <div className="slider-image">
                         <div className="blurred">
-                            <img src={'http://127.0.0.1:8000' + item["image"]} alt=""></img>
+                            <img src={'https://campus-olx.herokuapp.com' + item["image"]} alt=""></img>
 
                         </div>
-                        <img src={'http://127.0.0.1:8000' + item["image"]} alt=""></img>
+                        <img src={'https://campus-olx.herokuapp.com' + item["image"]} alt=""></img>
                     </div>
 
 
