@@ -9,7 +9,14 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
+import Avatar from '@mui/material/Avatar';
 import MailIcon from '@mui/icons-material/Mail';
+import Collapse from '@mui/material/Collapse';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import StarBorder from '@mui/icons-material/StarBorder';
+import { Link } from 'react-router-dom';
+
 import { GiHamburgerMenu } from 'react-icons/gi'
 import AccountMenu from './Menu';
 
@@ -18,7 +25,13 @@ import { open_login, open_register, closeAll } from '../store/slices/authModalSl
 
 export default function NavDrawer() {
 
+    const dispatch = useDispatch();
 
+    const [open, setOpen] = React.useState(true);
+
+    const handleClick = () => {
+        setOpen(!open);
+    };
 
 
     const [state, setState] = React.useState({
@@ -33,10 +46,12 @@ export default function NavDrawer() {
             return;
         }
 
+
         setState({ ...state, [anchor]: open });
     };
 
     const email = useSelector((state: RootState) => state.auth.email)
+    const username = useSelector((state: RootState) => state.auth.username)
     const openModal = useSelector((state: RootState) => state.authModal.openModal)
 
     const list = (anchor) => (
@@ -48,36 +63,96 @@ export default function NavDrawer() {
         >
             <List>
                 <ListItem>
-                {!email ?
-                   "Login"
-                   :
-                   "Hue" 
-                }
+                    {!email ?
+                        ""
+                        :
+                        <>
+                            <ListItemIcon>
+                                <Avatar alt="user" src="" >
+                                {username && username.toUpperCase()[0]}
+                                </Avatar>
+
+                            </ListItemIcon>
+                            {username}
+
+                        </>
+                    }
 
                 </ListItem>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
+
+                {
+                    !email ?
+                    
+                    <>
+
+                    <ListItem key="Login" onClick={() => dispatch(open_login())} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                <InboxIcon />
                             </ListItemIcon>
-                            <ListItemText primary={text} />
+
+                            <ListItemText primary="Login" />
                         </ListItemButton>
                     </ListItem>
-                ))}
+
+                    <ListItem key="Register" onClick={() => dispatch(open_register())} disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <InboxIcon />
+                            </ListItemIcon>
+
+                            <ListItemText primary="Register" />
+                        </ListItemButton>
+                    </ListItem>
+                    </>
+                    
+                    :
+                    <>
+
+                    <Link to='/profile'>
+                        <ListItem key="Profile" disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+
+                                <ListItemText primary="Profile" />
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
+                    <Link to='/my-ads'>
+                        <ListItem key="My Ads" disablePadding>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <InboxIcon />
+                                </ListItemIcon>
+
+                                <ListItemText primary="My Ads" />
+                            </ListItemButton>
+                        </ListItem>
+                    </Link>
+                    </>
+
+                }
+
+
+
             </List>
             <Divider />
             <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
+                <Link to='/'>
+                    <ListItem key="Home" disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                <InboxIcon />
                             </ListItemIcon>
-                            <ListItemText primary={text} />
+
+                            <ListItemText primary="Home" />
                         </ListItemButton>
                     </ListItem>
-                ))}
+                </Link>
+
+
             </List>
         </Box>
     );

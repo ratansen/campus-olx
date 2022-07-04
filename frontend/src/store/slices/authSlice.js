@@ -5,7 +5,7 @@ const user = localStorage.getItem("access_token") ? jwtDecode(localStorage.getIt
 
 const initialState = {
   token: localStorage.getItem("access_token"),
-  username: null,
+  username: user ? user.name : null,
   email: user ? user.email : null,
   id: null,
 };

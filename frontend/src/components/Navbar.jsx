@@ -50,12 +50,12 @@ function Navbar() {
 
     const [dropdown, setDropdown] = useState(false);
 
-    const [isMobile, setMobile] = useState(window.innerWidth < 960);
-
+    
     const handleOpen = () => {
         dispatch(open_login());
     }
-
+    
+    const [isMobile, setMobile] = useState(window.innerWidth < 960);
     const updateScreen = () => {
       setMobile(window.innerWidth < 960);
     };
@@ -71,7 +71,6 @@ function Navbar() {
 
     }, [navigator]);
 
-    console.log("atHome", atHome);
 
 
     const onMouseEnter = () => {
@@ -160,21 +159,27 @@ function Navbar() {
                             Products
                         </Link>
                     </li>
-                    <li className='nav-item'>
+                    {/* <li className='nav-item'>
                         <Link
                             to='/contact-us'
                             className='nav-links'
                         >
                             Contact Us
                         </Link>
-                    </li>
+                    </li> */}
                 </ul>
                 <Button />
-                {email ? 
-                <AccountMenu className='nav-icons'/>
-                :
-                <BiLogInCircle onClick={() => dispatch(open_login())} className='nav-icons' />
+                {
+                    (!isMobile) ?
+                    email ? 
+                        <AccountMenu className='nav-icons'/>
+                    :
+                        <BiLogInCircle onClick={() => dispatch(open_login())} className='nav-icons' />
+                    :
+                    ""
+                    
                 }
+
                 {isMobile && <NavDrawer className='nav-icons' />}
 
             </nav>

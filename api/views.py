@@ -1,9 +1,10 @@
 from ast import keyword
+from functools import partial
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.contrib.auth import authenticate,logout,login
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -31,8 +32,8 @@ def login_user(request, *args, **kwargs):
 
 
 class ProductViews(APIView):
-    permission_classes = (IsAuthenticated, )
-    authentication_classes = (JWTAuthentication,)
+    # permission_classes = (AllowAny, )
+    # authentication_classes = (JWTAuthentication,)
 
     #post
     def post(self, request, *args, **kwargs):
@@ -56,20 +57,27 @@ class ProductViews(APIView):
     
     # get
     def get(self, request, id = None):
-        print(request.user)
+        # print(request.user.email)
         # id = request.query_params.get('id', None)
         # print(id)
         if id:
             item = Product.objects.get(id=id)
             serializer = ProductSerializer(item)
             return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
-
+        email = request.query_params.get('email', None)
         keyword = request.query_params.get('keyword', None)
         category = request.query_params.get('category', None)
         price_from = request.query_params.get('price_from', None)
         price_to = request.query_params.get('price_to', None)
 
         items = Product.objects.all()
+
+        if email:
+            if(email == request.user.email):
+                
+                items = items.filter(posted_by = request.user)
+                print(items)
+
 
         if keyword:
             lookups = Q(title__icontains=keyword) | Q(description__icontains=keyword) | Q(posted_by__user_name__icontains = keyword)
@@ -100,7 +108,14 @@ class ProductViews(APIView):
     # update
     def patch(self, request, id=None):
         item = Product.objects.get(id=id)
-        serializer = ProductSerializer(item, data=request.data, partial=True)
+        print(request.FILES.getlist('product_images'))
+        product_images = request.FILES.getlist('product_images', None)
+        print(product_images)
+        data = request.data.copy()
+        print(request.user)
+        
+        serializer = PostViewSetSerializer(item, data=data, context = {'product_images': product_images}, partial = True)
+        # serializer = ProductSerializer(item, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response({"status": "success", "data": serializer.data})

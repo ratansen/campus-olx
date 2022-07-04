@@ -1,0 +1,16 @@
+.footer{
+    margin-top: auto;
+    padding-top: 200px;
+    height: 250px;
+    width: 100%;
+    /* background-color: var(--dark); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--dark);
+    font-family: 'Pacifico';
+    /* position: absolute; */
+    /* bottom: 0; */
+
+
+}

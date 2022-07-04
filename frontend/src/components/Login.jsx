@@ -11,10 +11,12 @@ import { closeAll, open_register } from "../store/slices/authModalSlice";
 export default function Login(){
     const dispatch = useDispatch()
 
-	const [formData, updateFormData] = useState({
+    const initialState = {
 		email: '',
 		password: '',
-	});
+	}
+
+	const [formData, updateFormData] = useState(initialState);
 
 	const handleChange = (e) => {
 		updateFormData({
@@ -43,6 +45,7 @@ export default function Login(){
 				console.log(res);
                 dispatch(load_user(res.data.access))
 				//console.log(res.data);
+                updateFormData(initialState)
                 navigate("/")
                 dispatch(closeAll())
                 

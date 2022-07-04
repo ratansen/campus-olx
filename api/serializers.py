@@ -14,7 +14,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta():
         model = Product
-        fields = ['id', 'title', 'category', 'price', 'negotiable', 'description', 'product_images', 'posted_by']
+        fields = ['id', 'title', 'category', 'price', 'negotiable', 'description', 'product_images', 'posted_by', 'posted_on']
         
  
 
@@ -26,6 +26,21 @@ class PostViewSetSerializer(serializers.ModelSerializer):
         for image in images:
             ProductImage.objects.create(product=product, image=image)
         return product
+    
+    def update(self, instance, validated_data):
+        images = self.context['product_images']
+        instance.title = validated_data.get('title', instance.title)
+        instance.price = validated_data.get('price', instance.price)
+        instance.category = validated_data.get('category', instance.category)
+        instance.description = validated_data.get('description', instance.description)
+        instance.negotiable = validated_data.get('negotiable', instance.negotiable)
+        print(instance.description)
+        
+        for image in images:
+            ProductImage.objects.create(product=instance, image=image)
+        instance.save()
+        return instance
+
 
     class Meta:
         model = Product

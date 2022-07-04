@@ -14,7 +14,7 @@
     color: #fff;
     cursor: pointer;
     background-color: var(--blue);
-    padding: 10px;
+    /* padding: 10px; */
   }
 .bi-plus{
     font-size: 1.6rem;
@@ -31,13 +31,13 @@
 
   @media screen and (max-width: 960px) {
       .btn{
-          flex-direction: column;
-          background-color: transparent;
-          color: var(--blue);
-          font-size: 0.5rem;
-          border: 2px solid var(--blue);
-          width: 50px;
-          border-radius: 0;
+          width: 120px;
+          height: 40px;
+          /* background-color: transparent; */
+          /* color: var(--blue); */
+          font-size: 0.7rem;
+          /* border: 2px solid var(--blue); */
+          /* border-radius: 10px; */
 
       }
 

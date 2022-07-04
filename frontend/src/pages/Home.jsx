@@ -8,17 +8,24 @@ import { Link } from 'react-router-dom';
 import { CategoryData } from "../CategoryData";
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import Loading from "../components/Loader";
+import timeSince from "../time";
 
 
 export default function Home() {
     const [ads, setAds] = useState([]);
     const [category, setCategory] = useState("")
     const [keyWord, setKeyword] = useState("")
+    const [loading, setLoading] = useState(false)
 
-    useEffect(() => {
+    useEffect(
+    
+        () => {
+        setLoading(true)
         axios.get('products/').then((response) => {
             setAds(response.data.data);
             console.log(ads);
+            setLoading(false)
         }).catch((error) => {
             if (error.response) {
                 console.log(error.response);
@@ -30,6 +37,7 @@ export default function Home() {
 
 
     return (
+        
         <>
             <div className="home-wrapper">
                 <div className="home-hero">
@@ -55,18 +63,26 @@ export default function Home() {
 
                 </div>
                 <CategorySlider />
+        {
+            loading ?
+            <Loading />
+            :
                 <div className="home-ads">
                     {ads.map((item, index) => {
+                        var d = timeSince(new Date(item.posted_on));
+                        console.log(d)
+                        
                         return (
                             <Link to={`/product/${item.id}`}>
-                                <AdCard image={'https://campus-olx.herokuapp.com' + (item.product_images.length > 0 ? item.product_images[0].image :
-                                    "")} category={item.category} title={item.title} price={item.price} />
+                                <AdCard image={(item.product_images.length > 0 ? item.product_images[0].image :
+                                    "")} category={item.category} title={item.title} price={item.price} posted_on={d} negotiable = {item.negotiable} link = {`/product/${item.id}`}/>
                             </Link>
                         )
                     })}
                     {/* {console.log(ads)} */}
 
                 </div>
+        }
             </div>
         </>
     )

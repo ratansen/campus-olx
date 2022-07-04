@@ -21,7 +21,10 @@ import ad1 from '../images/ad1.png'
 import { FaUserCircle } from "react-icons/fa";
 import { FiPhoneCall } from "react-icons/fi"
 import { FaWhatsapp } from "react-icons/fa";
+import { BiTime } from "react-icons/bi";
+import { BiCategory } from "react-icons/bi";
 import Loading from "../components/Loader";
+import timeSince from "../time";
 
 export default function Product() {
 
@@ -41,10 +44,10 @@ export default function Product() {
                 <SwiperSlide>
                     <div className="slider-image">
                         <div className="blurred">
-                            <img src={'https://campus-olx.herokuapp.com' + item["image"]} alt=""></img>
+                            <img src={item["image"]} alt=""></img>
 
                         </div>
-                        <img src={'https://campus-olx.herokuapp.com' + item["image"]} alt=""></img>
+                        <img src={item["image"]} alt=""></img>
                     </div>
 
 
@@ -122,7 +125,11 @@ export default function Product() {
                         </Swiper>
                         <div className="product-bottom">
                             <div className="product-desc">
-                                <h2>Description</h2>
+                            <div className="desc1">
+                                <span style={{display: "flex"}}><BiCategory className="icon" style={{marginLeft:"0px"}} />{ad.category}</span>
+                                <span style={{display: "flex"}}><BiTime className="icon"/>{timeSince(new Date(ad.posted_on))} ago</span>
+                            </div>
+                                <h2 style={{marginTop: "10px"}}>Description</h2>
                                 <p>
                                     {ad.description}
                                 </p>

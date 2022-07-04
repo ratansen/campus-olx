@@ -3,17 +3,14 @@ import './PostAd.css';
 import { axios } from "../api";
 import { CategoryData } from "../CategoryData";
 import PageHeader from "../components/PageHeader";
+import { useNavigate } from "react-router-dom";
+import {DropzoneArea} from 'react-mui-dropzone';
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function PostAd() {
 
-    const data = {
-        "title": "Chhavi",
-        "category": "Fashion",
-        "price": 1000000,
-        "description": "Chhavi is smartboy",
-        "negotiable": true
-    }
-
+    const navigate = useNavigate();
 
     const [inputs, setInputs] = useState({
         title: "",
@@ -24,11 +21,22 @@ export default function PostAd() {
         images: []
     })
     const [files, setFiles] = useState([])
+
+
+    const [loading, setLoading] = useState(false)
+
+
+
     const header = {
         "Content-Type": "multipart/form-data"
     }
 
+    
     function post(){
+        toast("Creating new post...", {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
+        setLoading(true)
         var formData = new FormData()
         formData.append("title", inputs.title)
         formData.append("category", inputs.category)
@@ -40,18 +48,17 @@ export default function PostAd() {
             if(i === inputs.images.length){
                 axios.post('products/', formData, header).then((response) => {
                     console.log("done");
-                    console.log(formData.get("product_images"))
+                    setLoading(false)
+                    console.log(formData.get("product_images"));
+                    navigate('/')
                   })
-                // postNow();
                 break;
             }
             formData.append("product_images", inputs.images[i])
             
         }
-
-        // function postNow(){
-        // }
-        console.log("working");
+        
+        console.log("posting");
         // console.log(inputs)
     }
 
@@ -64,13 +71,13 @@ export default function PostAd() {
 
     }
 
-    function handleFile(event){
-        const val = event.target.files
+    function handleFile(files){
+        // const val = event.target.files
         setInputs({
             ...inputs,
-            [event.target.name]: val
+            images: files
         })
-        console.log(val)
+        console.log(inputs.images)
     }
 
 
@@ -160,15 +167,19 @@ export default function PostAd() {
                     <div className="label">
                         Upload Images
                     </div>
-                    <div className="input-input" style={{ border: '2px dashed black' }}>
+                    <div className="input-input" >
 
-                        <input name="images" type='file' className="choose-file" onChange={handleFile} multiple>
+                        {/* <input name="images" type='file' className="choose-file" onChange={handleFile} files={inputs.images} multiple> */}
+                        <DropzoneArea name="images"
+                            onChange={(files) => handleFile(files)}
+                        />
 
-                        </input>
+                        {/* </input> */}
                     </div>
                 </div>
             </div>
-            <button className="submit-ad" onClick={post}>Submit</button>
+            {loading ? "" : <button className="submit-ad" onClick={post}>Submit</button>}
+            <ToastContainer />
         </div>
     </>
 

@@ -20,8 +20,15 @@ class CustomUserSerializer(serializers.ModelSerializer):
         password = validated_data.pop('password', None)
         # as long as the fields are the same, we can just use this
         instance = self.Meta.model(**validated_data)
-        instance.is_active = True
+        instance.is_active = False
         if password is not None:
             instance.set_password(password)
         instance.save()
         return instance
+
+class EmailVerificationSerializer(serializers.ModelSerializer):
+    token = serializers.CharField(max_length=555)
+
+    class Meta:
+        model = NewUser
+        fields = ['token']

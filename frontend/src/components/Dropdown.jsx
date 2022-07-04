@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { MenuItems } from './MenuItems';
 import './Dropdown.css';
 import { Link } from 'react-router-dom';
 import { CategoryData } from '../CategoryData';
@@ -22,6 +21,7 @@ export default function Dropdown() {
                 className="dropdown-link"
                 to={item.path}
                 onClick={() => setClick(false)}
+                state={{}}
               >
                 <span className='category-icon'>{item.icon}</span>{item.title}
               </Link>

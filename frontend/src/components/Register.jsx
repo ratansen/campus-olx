@@ -10,17 +10,13 @@ export default function Register(){
 
     const dispatch = useDispatch()
 
-	// const initialFormData = Object.freeze({
-	// 	email: '',
-	// 	username: '',
-	// 	password: '',
-	// });
+	const initialFormData = Object.freeze({
+		email: '',
+		username: '',
+		password: '',
+	});
 
-	const [formData, updateFormData] = useState({
-        	email: '',
-        	username: '',
-        	password: '',
-         });
+	const [formData, updateFormData] = useState(initialFormData);
 
 	const handleChange = (e) => {
 		updateFormData({
@@ -43,6 +39,7 @@ export default function Register(){
 			.then((res) => {
 				console.log(res);
 				console.log(res.data);
+                updateFormData(initialFormData)
 			});
 	};
 

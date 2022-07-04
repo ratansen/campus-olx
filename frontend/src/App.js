@@ -6,8 +6,11 @@ import Category from './pages/Category';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Product from './pages/Product';
 import PostAd from './pages/PostAd';
+import EditAd from './pages/EditAd';
 import { useSelector } from 'react-redux';
 import { axios } from './api';
+import MyAds from './pages/MyAds';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -23,8 +26,11 @@ function App() {
             <Route path = '/category' element = {<Category />} />
             <Route path = 'product/:id' element = {<Product />} />
             <Route path = '/post-ad' element = {<PostAd />} />
+            <Route path = 'edit-ad/:id' element = {<EditAd />} />
+            <Route path = '/my-ads' element = {<MyAds />} />
         </Routes>
         </Router>
+        <Footer />
         </div>
     );
 }

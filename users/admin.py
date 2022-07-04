@@ -3,4 +3,5 @@ from .models import NewUser
 # Register your models here.
 @admin.register(NewUser)
 class NewUser(admin.ModelAdmin):
+    readonly_fields = ('id',)
     pass

@@ -12,8 +12,11 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Logout from './Logout'
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function AccountMenu() {
+    const username = useSelector((state: RootState) => state.auth.username)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -32,7 +35,7 @@ export default function AccountMenu() {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
             >
-                <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                <Avatar sx={{ width: 32, height: 32 }}>{username && username.toUpperCase()[0]}</Avatar>
             </IconButton>
 
             <Menu
@@ -73,9 +76,12 @@ export default function AccountMenu() {
                 <MenuItem>
                     <Avatar /> Profile
                 </MenuItem>
+                    <Link to = '/my-ads'>
                 <MenuItem>
-                    <Avatar /> My account
+                        <Avatar /> My Ads
+
                 </MenuItem>
+                    </Link>
                 <Divider />
                 <MenuItem>
                     <ListItemIcon>
