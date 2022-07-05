@@ -11,7 +11,7 @@ from .models import NewUser
 from .utils import Util
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
-import jwt
+import pyjwt
 from django.conf import settings
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
@@ -70,7 +70,7 @@ class VerifyEmail(APIView):
         print(token)
         try:
             print(token)
-            payload = jwt.decode(token, options={"verify_signature": False})
+            payload = pyjwt.decode(token, options={"verify_signature": False})
             print(payload['user_id'])
             user = NewUser.objects.get(id=21)
             print(user)
@@ -78,7 +78,7 @@ class VerifyEmail(APIView):
                 user.is_active = True
                 user.save()
             return Response({'email': 'Successfully activated'}, status=status.HTTP_200_OK)
-        except jwt.ExpiredSignatureError as identifier:
+        except pyjwt.ExpiredSignatureError as identifier:
             return Response({'error': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)
-        except jwt.exceptions.DecodeError as identifier:
+        except pyjwt.exceptions.DecodeError as identifier:
             return Response({'error': 'Invalid token'}, status=status.HTTP_400_BAD_REQUEST)
