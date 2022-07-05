@@ -72,6 +72,7 @@ class VerifyEmail(APIView):
             print(token)
             payload = jwt.decode(token, options={"verify_signature": False})
             print(payload['user_id'])
+            id = int(payload['user_id'])
             user = NewUser.objects.get(id)
             print(user)
             if not user.is_active:
