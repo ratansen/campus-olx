@@ -1,6 +1,6 @@
 import Axios from 'axios';
-// const baseURL = 'https://campus-olx.herokuapp.com/api/';
-const baseURL = 'http://localhost:8000/api/';
+const baseURL = 'https://campus-olx.herokuapp.com/api/';
+// const baseURL = 'http://localhost:8000/api/';
 
 export const axios = Axios.create({
     baseURL: baseURL,
