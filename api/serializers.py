@@ -13,7 +13,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     product_images = ProductImageSerializer(many = True)
     owner_name = serializers.ReadOnlyField(source = 'posted_by.user_name')
-    owner_contact = serializers.ReadOnlyField(source = 'posted_by.mobile')
+    owner_contact = serializers.ReadOnlyField(source = 'posted_by.mobile_number')
     owner_department = serializers.ReadOnlyField(source = 'posted_by.department')
     owner_hostel = serializers.ReadOnlyField(source = 'posted_by.hostel')
 
