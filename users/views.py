@@ -30,7 +30,7 @@ class CustomUserCreate(APIView):
             token = RefreshToken.for_user(user).access_token
             current_site = get_current_site(request).domain
             relativeLink = 'email-verify'
-            absurl = 'http://'+"campus-olx.herokuapp.com/api/user/emailverify" + "?token="+str(token)
+            absurl = 'http://'+"campus-olxc.herokuapp.com/api/user/emailverify" + "?token="+str(token)
             email_body = 'Hi '+user.user_name + \
                 ' Use the link below to verify your email \n' + absurl
             data = {'email_body': email_body, 'to_email': user.email,
