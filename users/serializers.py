@@ -29,7 +29,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return instance
 
 class EmailVerificationSerializer(serializers.ModelSerializer):
-    token = serializers.CharField(max_length=555)
+    token = serializers.CharField(max_length=1023)
 
     class Meta:
         model = NewUser
