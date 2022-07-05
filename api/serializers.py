@@ -1,5 +1,6 @@
-from math import prod
+
 from rest_framework import serializers
+from rest_framework.serializers import ReadOnlyField
 from rest_framework import exceptions
 from .models import Product, ProductImage
 
@@ -11,10 +12,14 @@ class ProductImageSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
 
     product_images = ProductImageSerializer(many = True)
+    owner_name = serializers.ReadOnlyField(source = 'posted_by.user_name')
+    owner_contact = serializers.ReadOnlyField(source = 'posted_by.mobile')
+    owner_department = serializers.ReadOnlyField(source = 'posted_by.department')
+    owner_hostel = serializers.ReadOnlyField(source = 'posted_by.hostel')
 
     class Meta():
         model = Product
-        fields = ['id', 'title', 'category', 'price', 'negotiable', 'description', 'product_images', 'posted_by', 'posted_on']
+        fields = ['id', 'title', 'category', 'price', 'negotiable', 'description', 'product_images', 'posted_by', 'posted_on', 'owner_name', 'owner_contact', 'owner_department', 'owner_hostel']
         
  
 

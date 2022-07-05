@@ -6,8 +6,8 @@
     align-items: center;
     justify-items: center;
     margin-top: -98px;
-    background: #f8f8f8;
-    background: #f4f3f3;
+    /* background: #f8f8f8; */
+    background: #f4f8fb;
     width: 70vw;
     gap: 10px;
     padding: auto;
@@ -93,14 +93,15 @@
 }
 
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
     .category-slider-wrapper{
-        width: 80%;
+        width: 90%;
+        gap: 0px;
     }
     .category-box{
         height: 120px;
         width: 160px;
-        gap: 10px;
+        /* gap: 10px; */
     }
 
 

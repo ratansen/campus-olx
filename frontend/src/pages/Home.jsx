@@ -24,7 +24,7 @@ export default function Home() {
         setLoading(true)
         axios.get('products/').then((response) => {
             setAds(response.data.data);
-            console.log(ads);
+            console.log(response.data.data);
             setLoading(false)
         }).catch((error) => {
             if (error.response) {

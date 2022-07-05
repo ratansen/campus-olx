@@ -32,11 +32,11 @@ export default function CategorySlider() {
 
     const updatenum = () => {
         const sz = window.innerWidth
-        setNumSlide((sz * 4) / 1200)
+        setNumSlide((sz * 4) / 1100)
     }
 
     useEffect(() => {
-        
+        updatenum()
         window.addEventListener("resize", updatenum);
         return () => window.removeEventListener("resize", updatenum);
     });

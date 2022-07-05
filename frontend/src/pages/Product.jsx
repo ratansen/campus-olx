@@ -37,7 +37,7 @@ export default function Product() {
     const fetchData = async () => axios.get(`products/${id}`).then((response) => {
         setAd(response.data.data, () => console.log(ad));
         const images = response.data.data.product_images;
-
+        console.log(response.data.data)
         setSlider(() => images.map((item, key) => {
             console.log(images)
             return (
@@ -145,17 +145,17 @@ export default function Product() {
                             <span>Ad Owner</span>
                             <div className="owner-name">
                                 <FaUserCircle className="user-icon" />
-                                <span style={{verticalAlign:"sub"}}>Ratan Sen</span><br />
-                                <span style={{ fontSize: "0.7rem", verticalAlign: "top" }}>B.Tech</span>
+                                <span style={{verticalAlign:"sub"}}>{ad.owner_name}</span><br />
+                                <span style={{ fontSize: "0.7rem", verticalAlign: "top" }}>{ad.owner_department}</span>
                             </div>
                             <div className="contact">
-                                <a href="tel:902609">
+                                <a href={"tel:" + ad.owner_contact}>
 
                                     <div className="owner-contact">
                                         <FiPhoneCall className="call" /> Call
                                     </div>
                                 </a>
-                                <a href="https://wa.me/9026902690">
+                                <a href={"https://wa.me/" + ad.owner_contact}>
 
                                     <div className="owner-contact" >
                                         <FaWhatsapp className="call" /> Message

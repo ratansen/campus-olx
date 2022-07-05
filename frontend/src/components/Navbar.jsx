@@ -16,24 +16,25 @@ import Login from './Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { open_login, open_register, closeAll } from '../store/slices/authModalSlice';
 import AccountMenu from './Menu'
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '45vw',
-    height: '80vh',
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    outline: 'none',
-    zIndex: "10000",
-    p: 4,
-    fontSize: '5px',
-    overflowY: 'auto'
-};
 
 function Navbar() {
-
+    const [isMobile, setMobile] = useState(window.innerWidth < 960);
+    
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: isMobile ? '80vw' : '45vw',
+        height: '80vh',
+        bgcolor: 'background.paper',
+        boxShadow: 24,
+        outline: 'none',
+        zIndex: "10000",
+        p: 4,
+        fontSize: '5px',
+        overflowY: 'auto'
+    };
     const dispatch = useDispatch()
     const navigator = useNavigate()
     const [atHome, setAtHome] = useState(true)
@@ -55,7 +56,6 @@ function Navbar() {
         dispatch(open_login());
     }
     
-    const [isMobile, setMobile] = useState(window.innerWidth < 960);
     const updateScreen = () => {
       setMobile(window.innerWidth < 960);
     };
@@ -125,7 +125,7 @@ function Navbar() {
 
             <nav className={!scrolled ? atHome ? "navbar" : "navbar notAtHomeNotScrolled" : "navbar navbar-color" }  >
                 <Link to='/' className='navbar-logo'>
-                    CLA-C
+                    olxC
                     <i class='fab fa-firstdraft' />
                 </Link>
                 {/* <div className='menu-icon' onClick={handleClick}>

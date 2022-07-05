@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { axios } from './api';
 import MyAds from './pages/MyAds';
 import Footer from './components/Footer';
-
+import { toast, ToastContainer } from "react-toastify";
 
 function App() {
     const email = useSelector((state: RootState) => state.auth.email)
@@ -30,6 +30,7 @@ function App() {
             <Route path = '/my-ads' element = {<MyAds />} />
         </Routes>
         </Router>
+        <ToastContainer />
         <Footer />
         </div>
     );

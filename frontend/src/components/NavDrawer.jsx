@@ -109,7 +109,7 @@ export default function NavDrawer() {
                     :
                     <>
 
-                    <Link to='/profile'>
+                    <Link to='/'>
                         <ListItem key="Profile" disablePadding>
                             <ListItemButton>
                                 <ListItemIcon>

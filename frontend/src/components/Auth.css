@@ -21,7 +21,6 @@
 .login-form-field {
     flex: 1;
     width: 50%;
-
 }
 .login-form-field p{
     font-weight: 800;
@@ -71,4 +70,17 @@
 }
 .auth-buttons span:hover{
     color: var(--blue);
+}
+
+@media screen and (max-width: 960px) {
+    .login-form{
+        flex-direction: column;
+    }
+    .login-form div:nth-child(2){
+        margin-top: 10px;
+    }
+    .login-form-field {
+        width: 100%;
+    }
+
 }

@@ -13,6 +13,6 @@ export default function Loading() {
             alignItems: "center"
         }}
     >
-        <ThreeDots color="#52006A" height="100" width="100" />
+        <ThreeDots color="var(--primary)" height="100" width="100" />
     </div>)
 }

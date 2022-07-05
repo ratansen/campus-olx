@@ -32,10 +32,23 @@ export default function PostAd() {
     }
 
     
-    function post(){
-        toast("Creating new post...", {
-            position: toast.POSITION.BOTTOM_RIGHT,
-          });
+    function post(e){
+        console.log(inputs);
+        e.preventDefault();
+        for(var key in inputs){
+            if(inputs[key] === ""){
+                toast(`${key} is required`, {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                  })  
+                return;
+            }
+            if(inputs.images.length === 0){
+                toast(`Image is required`, {
+                    position: toast.POSITION.BOTTOM_RIGHT,
+                  })  
+                return;
+            }
+        }
         setLoading(true)
         var formData = new FormData()
         formData.append("title", inputs.title)
@@ -51,6 +64,14 @@ export default function PostAd() {
                     setLoading(false)
                     console.log(formData.get("product_images"));
                     navigate('/')
+                }).then((res) => {
+                    toast("Adding your ad...", {
+                        position: toast.POSITION.BOTTOM_RIGHT,
+                      });
+                    }).catch((e) => {
+                        toast("Some error occured...", {
+                            position: toast.POSITION.BOTTOM_RIGHT,
+                          });       
                   })
                 break;
             }
@@ -85,7 +106,7 @@ export default function PostAd() {
         <>
 
         <PageHeader name="Submit Ad"/>
-        <div className="postad-wrapper">
+        <form className="postad-wrapper">
             <div className="ad-info-input">
                 <div className="input-header">
                     Select Category
@@ -96,7 +117,7 @@ export default function PostAd() {
                     </div>
                     <div className="input-input">
 
-                        <select name='category' value={inputs.category} onChange={handleChange}>
+                        <select name='category' value={inputs.category} onChange={handleChange} required>
                         <option selected>Select category</option>
                             {CategoryData.map((item, index) => {
                                 return(
@@ -119,7 +140,7 @@ export default function PostAd() {
 
                     <div className="input-input">
 
-                        <input name="title" value={inputs.title} onChange={handleChange}></input>
+                        <input name="title" value={inputs.title} onChange={handleChange} required></input>
 
                     </div>
                 </div>
@@ -129,7 +150,7 @@ export default function PostAd() {
                     </div>
                     <div className="input-input">
 
-                        <input name="price" type="number" value={inputs.price} onChange={handleChange}></input>
+                        <input name="price" type="number" value={inputs.price} onChange={handleChange} required></input>
 
                     </div>
                 </div>
@@ -139,7 +160,7 @@ export default function PostAd() {
                     </div>
                     <div className="input-input">
 
-                        <select name="price_type" value={inputs.price_type} onChange={handleChange}>
+                        <select name="price_type" value={inputs.price_type} onChange={handleChange} required>
                         <option selected>Select price type</option>
                         <option value='fixed' selected>Fixed</option>
                         <option value='negotiable'>Negotiable</option>
@@ -154,7 +175,7 @@ export default function PostAd() {
                     </div>
                     <div className="input-input">
 
-                        <textarea name="description" rows={10} style={{ resize: 'vertical' }} value={inputs.description} onChange={handleChange}></textarea>
+                        <textarea name="description" rows={10} style={{ resize: 'vertical' }} value={inputs.description} onChange={handleChange} required></textarea>
 
                     </div>
                 </div>
@@ -172,15 +193,15 @@ export default function PostAd() {
                         {/* <input name="images" type='file' className="choose-file" onChange={handleFile} files={inputs.images} multiple> */}
                         <DropzoneArea name="images"
                             onChange={(files) => handleFile(files)}
-                        />
+                            required />
 
                         {/* </input> */}
                     </div>
                 </div>
             </div>
-            {loading ? "" : <button className="submit-ad" onClick={post}>Submit</button>}
+            {loading ? "" : <button type="submit" className="submit-ad" onClick={post}>Submit</button>}
             <ToastContainer />
-        </div>
+        </form>
     </>
 
     )

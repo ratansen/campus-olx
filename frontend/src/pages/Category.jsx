@@ -99,7 +99,7 @@ export default function Category() {
 
         }).then((response) => {
             setAds(response.data.data);
-            console.log(ads);
+            console.log(response.data.data);
         }).catch((error) => {
             if (error.response) {
                 console.log(error.response);
