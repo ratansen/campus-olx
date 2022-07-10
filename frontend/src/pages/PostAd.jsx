@@ -6,10 +6,12 @@ import PageHeader from "../components/PageHeader";
 import { useNavigate } from "react-router-dom";
 import {DropzoneArea} from 'react-mui-dropzone';
 import { toast, ToastContainer } from "react-toastify";
+import { useSelector } from "react-redux";
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function PostAd() {
-
+    const email = useSelector((state: RootState) => state.auth.email)
+    
     const navigate = useNavigate();
 
     const [inputs, setInputs] = useState({
@@ -35,6 +37,12 @@ export default function PostAd() {
     function post(e){
         console.log(inputs);
         e.preventDefault();
+        if(!email){
+            toast(`You must login to post ad`, {
+                position: toast.POSITION.BOTTOM_RIGHT,
+              })  
+            return;
+        }
         for(var key in inputs){
             if(inputs[key] === ""){
                 toast(`${key} is required`, {

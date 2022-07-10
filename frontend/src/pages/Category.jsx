@@ -16,6 +16,7 @@ import PageHeader from "../components/PageHeader";
 import timeSince from "../time";
 import Drawer from '@mui/material/Drawer';
 import {AiFillFilter} from "react-icons/ai"
+import Loading from "../components/Loader";
 
 
 export default function Category() {
@@ -39,6 +40,7 @@ export default function Category() {
 
     const [category, setCategory] = useState([cat])
     const [keyword, setKeyword] = React.useState(kw)
+    const [loader, setLoader] = useState(true)
 
     const [ads, setAds] = useState([]);
 
@@ -59,6 +61,7 @@ export default function Category() {
         }).then((response) => {
             setAds(response.data.data);
             console.log(ads);
+            setLoader(false)
 
         }).catch((error) => {
             if (error.response) {
@@ -177,6 +180,7 @@ export default function Category() {
       </Drawer>
     )
 
+    
 
 
     return (
@@ -189,7 +193,8 @@ export default function Category() {
 
                 <div className="category-rightdiv">
                     <div className="category-right-top">
-                        <span>Showing 1 - 12 of 20 ads found</span>
+
+                        <span>Showing {ads.length === 0 ? 0 : 1} - {ads.length} of {ads.length} ad{ads.length > 1 ? 's' : ''} found</span>
                     </div>
                     <div className="category-right-body">
 
@@ -197,10 +202,13 @@ export default function Category() {
                             var d = timeSince(new Date(item.posted_on))
                             return (
                                 <Link to={`/product/${item.id}`}>
-                                    <AdCard image={'http://127.0.0.1:8000' + item.images} category={item.category} title={item.title} price={item.price} posted_on={d} />
+                                    <AdCard image={(item.product_images.length > 0 ? item.product_images[0].image :
+                                    "")} category={item.category} title={item.title} price={item.price} posted_on={d} />
                                 </Link>
                             )
                         })}
+                        {ads.length === 0? (<center>No Ads found</center>) : ""}
+                        {/* {loader ? <Loading /> : ""} */}
                     </div>
 
                 </div>

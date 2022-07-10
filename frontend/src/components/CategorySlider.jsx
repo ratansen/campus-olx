@@ -18,7 +18,7 @@ function Box({ icon, title, number, path }) {
         <div className="category-box">
             {icon}
             <span className="cat-name">{title}</span>
-            <span className="cat-numofad">{number} ads posted</span>
+            <span className="cat-numofad">Many ads posted</span>
         </div>
     )
 }

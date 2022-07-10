@@ -5,7 +5,10 @@ export default function Footer(){
     return(
         <>
             <div className="footer">
-                Developed with ❤️ by Ratan
+            <div className="text">
+
+                &#169; Ratan Sen 
+            </div>
             </div>
         </>
     )

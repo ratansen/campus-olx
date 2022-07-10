@@ -1,4 +1,4 @@
-import React, {useState, useHistory} from "react";
+import React, {useState, useHistory, useEffect} from "react";
 import { Divider } from "@mui/material";
 import './Auth.css';
 import { axios } from "../api";
@@ -32,7 +32,11 @@ export default function Register(){
 			[e.target.name]: e.target.value.trim(),
 		});
 	};
-
+    useEffect(
+        () => {
+            updateFormData(initialFormData)
+        }
+    , [])
 	const handleSubmit = (e) => {
 		e.preventDefault();
         // e.checkValidity();

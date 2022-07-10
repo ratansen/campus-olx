@@ -21,7 +21,7 @@ export default function Dropdown() {
                 className="dropdown-link"
                 to={item.path}
                 onClick={() => setClick(false)}
-                state={{}}
+                state={{ cat: item.title }}
               >
                 <span className='category-icon'>{item.icon}</span>{item.title}
               </Link>

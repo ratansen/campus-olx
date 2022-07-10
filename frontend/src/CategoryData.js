@@ -14,7 +14,7 @@ export const CategoryData = [
     },
     {
         title: 'Stationary', 
-        path: '/stationary', 
+        path: '/category', 
         icon: <GiIcons.GiPencilRuler/>, 
         number: 52,
     },

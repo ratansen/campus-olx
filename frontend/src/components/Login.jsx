@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom"
 import { Divider } from "@mui/material";
 import './Auth.css'
@@ -24,6 +24,12 @@ export default function Login(){
 			[e.target.name]: e.target.value.trim(),
 		});
 	};
+
+    useEffect(
+        () => {
+            updateFormData(initialState)
+        }
+    , [])
 
     const navigate = useNavigate();
 
@@ -72,7 +78,7 @@ export default function Login(){
 
 
     return (
-        <form className="auth-wrapper">
+        <form className="auth-wrapper" autoComplete="off">
             <h2>Login</h2>
             <div className='login-form'>
                 <div className='login-form-field'>
